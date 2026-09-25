@@ -1,0 +1,10 @@
+symbol,description,asset_class,currency,quantity,market_value_cad,cost_basis_cad
+XEQT,iShares Core Equity ETF Portfolio,global_equity,CAD,900,31500.00,27000.00
+ZAG,BMO Aggregate Bond Index ETF,bonds,CAD,400,5600.00,5900.00
+XRE,iShares S&P/TSX Capped REIT ETF,reit,CAD,200,3200.00,3400.00
+BCE.PR.A,BCE Preferred Series A,preferred,CAD,150,2700.00,3000.00
+PSEC,Prospect Capital Corp,bdc,USD,500,3300.00,4600.00
+CLM,Cornerstone Strategic Value Fund,leveraged_cef,USD,400,4400.00,5200.00
+DFN,Dividend 15 Split Corp,split_share,CAD,500,3100.00,3500.00
+QYLD,Global X Nasdaq 100 Covered Call ETF,covered_call,USD,100,2500.00,2600.00
+CASH.CAD,CAD margin loan,cash,CAD,1,-9000.00,-9000.00

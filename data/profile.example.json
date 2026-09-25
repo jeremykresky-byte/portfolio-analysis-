@@ -1,0 +1,37 @@
+{
+  "_note": "Values marked ASSUMPTION are placeholders. Replace them with real numbers; every forecast depends on them.",
+  "name": "Example Investor",
+  "province": "ON",
+  "current_age": 40,
+  "_current_age_source": "EXAMPLE",
+  "retirement_age": 62,
+  "plan_to_age": 95,
+  "annual_contribution": 15000,
+  "_annual_contribution_source": "ASSUMPTION - total yearly savings into investment accounts (RRSP + TFSA + non-reg + corporate).",
+  "contribution_growth": 0.025,
+  "retirement_spending": 80000,
+  "_retirement_spending_source": "ASSUMPTION - after-tax spending per year in today's dollars.",
+  "avg_tax_rate_in_retirement": 0.2,
+  "inflation": 0.021,
+  "margin_rate_spread": 0.015,
+  "_margin_rate_spread_source": "IBKR CAD margin is roughly the BoC overnight rate + 1.5% on small balances.",
+  "government_benefits": {
+    "cpp_monthly_at_65": 1100,
+    "cpp_start_age": 65,
+    "oas_monthly_at_65": 740,
+    "oas_start_age": 65,
+    "_source": "ASSUMPTION - today's dollars. Get your CPP statement from My Service Canada Account and replace."
+  },
+  "other_assets": [
+    {
+      "name": "Other RRSP / TFSA / corporate investments (not in IBKR)",
+      "value": 0,
+      "asset_class": "global_equity",
+      "_source": "ASSUMPTION - add any accounts held outside IBKR."
+    }
+  ],
+  "target_success_probability": 0.85,
+  "simulations": 5000,
+  "seed": 42,
+  "data_note": "Example portfolio and assumptions. Copy data/*.example.* to data/holdings.csv and data/profile.json and enter your own figures."
+}

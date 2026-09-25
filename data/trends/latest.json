@@ -1,0 +1,820 @@
+{
+  "generated": "2026-09-25T16:34:10+00:00",
+  "previous_generated": "2026-09-25T16:33:50+00:00",
+  "macro": {
+    "boc_policy_rate": {
+      "label": "BoC overnight rate",
+      "unit": "%",
+      "date": "2026-09-24",
+      "value": 2.25,
+      "chg_3m": 0.0,
+      "chg_12m": -0.25,
+      "source": "Bank of Canada V39079"
+    },
+    "goc_2y": {
+      "label": "GoC 2-yr yield",
+      "unit": "%",
+      "date": "2026-09-24",
+      "value": 3.39,
+      "chg_3m": 0.64,
+      "chg_12m": 0.94,
+      "source": "Bank of Canada BD.CDN.2YR.DQ.YLD"
+    },
+    "goc_10y": {
+      "label": "GoC 10-yr yield",
+      "unit": "%",
+      "date": "2026-09-24",
+      "value": 3.97,
+      "chg_3m": 0.58,
+      "chg_12m": 0.77,
+      "source": "Bank of Canada BD.CDN.10YR.DQ.YLD"
+    },
+    "cad_cpi_yoy": {
+      "label": "Canada CPI y/y",
+      "unit": "%",
+      "date": "2026-08-01",
+      "value": 2.4,
+      "chg_3m": 0.2,
+      "chg_12m": -0.2,
+      "source": "Bank of Canada ATOM_V41693242"
+    },
+    "cad_cpi_trim": {
+      "label": "Canada CPI-trim",
+      "unit": "%",
+      "date": "2026-08-01",
+      "value": 1.9,
+      "chg_3m": -0.1,
+      "chg_12m": -1.1,
+      "source": "Bank of Canada CPI_TRIM"
+    },
+    "usdcad": {
+      "label": "USD/CAD",
+      "unit": "",
+      "date": "2026-09-24",
+      "value": 1.4136,
+      "chg_3m": -0.007,
+      "chg_12m": 0.024,
+      "source": "Bank of Canada FXUSDCAD"
+    },
+    "us_10y": {
+      "label": "US 10-yr Treasury",
+      "unit": "%",
+      "date": "2026-09-23",
+      "value": 5.11,
+      "chg_3m": 0.7,
+      "chg_12m": 0.99,
+      "source": "FRED DGS10"
+    },
+    "us_curve": {
+      "label": "US 10y-2y spread",
+      "unit": "%",
+      "date": "2026-09-24",
+      "value": 0.31,
+      "chg_3m": 0.0,
+      "chg_12m": -0.28,
+      "source": "FRED T10Y2Y"
+    },
+    "us_unemployment": {
+      "label": "US unemployment",
+      "unit": "%",
+      "date": "2026-08-01",
+      "value": 4.1,
+      "chg_3m": -0.2,
+      "chg_12m": -0.3,
+      "source": "FRED UNRATE"
+    },
+    "sahm": {
+      "label": "Sahm recession indicator",
+      "unit": "pts",
+      "date": "2026-08-01",
+      "value": -0.07,
+      "chg_3m": -0.17,
+      "chg_12m": -0.3,
+      "source": "FRED SAHMREALTIME"
+    },
+    "hy_spread": {
+      "label": "US high-yield spread",
+      "unit": "%",
+      "date": "2026-09-24",
+      "value": 2.8,
+      "chg_3m": 0.02,
+      "chg_12m": 0.1,
+      "source": "FRED BAMLH0A0HYM2"
+    },
+    "vix": {
+      "label": "VIX",
+      "unit": "",
+      "date": "2026-09-22",
+      "value": 14.21,
+      "chg_3m": -5.28,
+      "chg_12m": -1.89,
+      "source": "FRED VIXCLS"
+    },
+    "wti": {
+      "label": "WTI crude",
+      "unit": "US$",
+      "date": "2026-09-22",
+      "value": 96.41,
+      "chg_3m": 21.79,
+      "chg_12m": 33.42,
+      "source": "FRED DCOILWTICO"
+    }
+  },
+  "regime": {
+    "rates_falling": {
+      "on": false,
+      "why": "BoC rate -0.25 pts over 12 mo; 2-yr GoC +0.64 over 3 mo"
+    },
+    "rates_rising": {
+      "on": true,
+      "why": "2-yr GoC +0.64 pts over 3 mo (>+0.25 = rising); 10-yr +0.58"
+    },
+    "inflation_high": {
+      "on": false,
+      "why": "Canada CPI 2.4% y/y (>3% = high)"
+    },
+    "recession_risk": {
+      "on": false,
+      "why": "Sahm -0.07 (>=0.3 warns), US curve 0.31% (<0 = inverted)"
+    },
+    "curve_steepening": {
+      "on": false,
+      "why": "US 10y-2y 0.31% (-0.28 over 12 mo)"
+    },
+    "credit_stress": {
+      "on": false,
+      "why": "HY spread 2.8% (>5% or +1 pt in 3 mo = stress)"
+    },
+    "risk_on": {
+      "on": true,
+      "why": "VIX 14.21, HY spread 2.8%"
+    },
+    "oil_high": {
+      "on": true,
+      "why": "WTI US$96.41 (>85 = high)"
+    },
+    "usd_strong": {
+      "on": true,
+      "why": "USD/CAD 1.4136 (>1.38 = strong USD)"
+    }
+  },
+  "themes": [
+    {
+      "key": "energy_lng",
+      "label": "Canadian energy & LNG",
+      "vehicles": [
+        "XEG.TO",
+        "TOU.TO",
+        "ENB.TO"
+      ],
+      "score": 3.88,
+      "news": {
+        "articles": 100,
+        "span_days": 29.4,
+        "per_day": 3.4,
+        "momentum": 5.19,
+        "tone": 0.88
+      },
+      "macro_reasons": [
+        "+2 oil high"
+      ],
+      "headlines": [
+        {
+          "title": "LNG Canada Ramps Up Output as Iran War Threatens Global Gas Supplies - EnergyNow.com",
+          "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxNV1BUYlRWMFE2cE5lX2d2YUJodGJWcVlfYkZkbVlWYnpTRXM5WmhmTmlBTHNwMGExdUVoZXJzZnBiQXA5NzNSMjdqS1JQdy1UX2xFOXBrZ3lxNjFQU2lyLU81QUZfMHZvNzU3VzlkNWJEYjJXSmVLeXBEczhMTUtvTU04T1dHY1FwZ05QLWdnYWlwWmJrV0FwWjVyc0t6X2t6?oc=5",
+          "source": "EnergyNow.com",
+          "published": "2026-09-25T13:30:26+00:00"
+        },
+        {
+          "title": "Northwest Pipeline Receipts Hit Highest Level Since May, Sink Sumas Natural Gas Prices - Natural Gas Intelligence",
+          "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxNV01qWWlmcXdLdXY5Mm1nUWlKVlR4aGpUc1hGOWZfek9WSXZrR3RvMzI4QXJ4Q3gwRTI4LTlXaUpERVpIbnFzLW5XclZ1SzltUGh0WUdOOVJfMWctS242dmU3NFJ6OERwTndOMlBhRGpadkc4Z2JWVmtyRVhCS0QySDFCeXZpdVhaSnJDZ2hjeERvUkhaOUVLSm1MZzN0TURGSUswTzJDWnlGdFBEQ0R4WXo4U05IRHNFTDRN?oc=5",
+          "source": "Natural Gas Intelligence",
+          "published": "2026-09-25T13:21:04+00:00"
+        },
+        {
+          "title": "Henry Hub natural gas prices this summer were 6% lower than last summer - U.S. Energy Information Administration (EIA) (.gov)",
+          "link": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE9vS2k4WVNMWkhCQ0FVdzh1QXNPRFhkRklUbURrNUd4eGZyNjdpWk5DX2FSVGtvTXhMVkZkemhuOVAyV3dXc0V5XzBQS2ozWTVwMDJCN3RmRGxuN1VVUl95WkVrbw?oc=5",
+          "source": "U.S. Energy Information Administration (EIA) (.gov)",
+          "published": "2026-09-25T13:00:44+00:00"
+        },
+        {
+          "title": "OPEN LETTER TO ALBERTANS: Growth of Alberta\u2019s Oil Sands Industry Over Past Three Decades Shows Cooperative Fiscal Federalism Still Works - Lennie Kaplan - energynow.ca",
+          "link": "https://news.google.com/rss/articles/CBMiigJBVV95cUxQZGFRWEpCRTRxRU1aM2d0LTlranNJakFMUXZzaENQb3N2ZEl1T0RtOVkxbWRRY0dCMHVncG1fQVYxYzR1Zk02ZWRvR2VpRWVMdDJSZTBmSUhnM2FZaGhWQWxGUExMelhieVQ3U082V2g2VDBVNTlGWWxna1lES3VHNnVraFdYNTF6ZXZCWm9wRm15RkxHWURFRTFfUGt4bGp0QTJiTHRTSUtqWHlkZnpWaEpWakt1cEFCeUp0TkJUdkxDQmRuLUFWV1JWaVgwd29fckNzSUxvTTN4cHZIT2pYd1hzaEd4bVIyTXRLVUVSaF84WGhIbEFSTUdsUGNVRWhCbmktamgxcVZSQQ?oc=5",
+          "source": "energynow.ca",
+          "published": "2026-09-25T05:45:38+00:00"
+        },
+        {
+          "title": "LNG Canada Nears Crucial Phase 2 Decision as First Expansion Year Builds Momentum - energynow.ca",
+          "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOXy1MRlJ2MUdNa1FZVFhJaVV6dmdoTDg4eG1xeWMwM1o2cWN0WG9BaUVNYnJzV2hHUDZLV1dSMGxNUzFZa1RyVEZSd0QtSTRpQVRNZENNdXE1SF9pTWxTU2g5VmIwUXJUX3F0OVAtcGpkeG85c2d6bllKODdVY2Z5dXR6anJteWt4aUREVFdtTHRTcnR4eGdaeDBfVmpvS2JkRFpPejZtMGI4bkNGbUNYTw?oc=5",
+          "source": "energynow.ca",
+          "published": "2026-09-25T03:13:22+00:00"
+        }
+      ],
+      "rank": 1,
+      "prev_rank": 1,
+      "signal": "Overweight candidate"
+    },
+    {
+      "key": "nuclear_uranium",
+      "label": "Nuclear & uranium",
+      "vehicles": [
+        "CCO.TO",
+        "HURA.TO",
+        "URNM"
+      ],
+      "score": 3.0,
+      "news": {
+        "articles": 100,
+        "span_days": 28.4,
+        "per_day": 3.5,
+        "momentum": 3.91,
+        "tone": 1.0
+      },
+      "macro_reasons": [
+        "+1 risk on"
+      ],
+      "headlines": [
+        {
+          "title": "$96.50 Uranium Contract Price Lets Developers Fund Through Offtake - Crux Investor",
+          "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQaDlGemVQN2RTcVl3cnZreE55RGNiVmJXbHp6ZDZLNXVDVzFGVi1MaWhoNkM2SmJNTE5mdml2Rm1fOHo1VGFuZGM2TXN3V3dGQTZaLXczZEp6RGJoS3o2dkpnNGxEeGh4Tzl0d3VVUGR1ZEg4Ync4SVN3VzBoMWFMeC1wZGVRd0hwVFJjN291ZGl5a0htX1VVaDJmQk5OOGRvb3c?oc=5",
+          "source": "Crux Investor",
+          "published": "2026-09-25T14:59:33+00:00"
+        },
+        {
+          "title": "Atomic Eagle expects renewed financing interest in Niger after uranium deal - Mining.com",
+          "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxPQ3BYS05BNHFLcjRpZW5DVmRXOW9La3FWZDkyRnQyakQ3VVV4TkVEeTFydmczTDRZUklLaTc2aTlHUU1va1VZZGpVeUR5S0E2aExOSEtzcEtwLW40SHRMeWNNaWxFZjFHVW83TklUemYwclkyY2lRVlF4R01Oc1FHeG9Yam9wM2FGZUZyYkhEdm9FbERlRWhlRkJMS01waDUyanR1MXVR?oc=5",
+          "source": "Mining.com",
+          "published": "2026-09-25T13:54:13+00:00"
+        },
+        {
+          "title": "SuperCritical tests seawater uranium system - The Northern Miner",
+          "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxOQm0zNlNhaU1VWlE2b0RTN1BqUmN2VDVoWFhldWxuRDRfMG9TLVBCRkdGNExsUGNuS1JrMXQ1Ql9CVzNBQW1zYW1aczV4cU82RVV2Qk9fSU9oUE1KNVVSLVV1LXJ6bnJjNUxBVUdKemFaRVJfZWdzUkZQNUZWQzJwUUpGbWpLVXhQMXpQdVo4Rllfb2luRWdQWQ?oc=5",
+          "source": "The Northern Miner",
+          "published": "2026-09-25T13:17:30+00:00"
+        },
+        {
+          "title": "Standard Uranium Announces AGM Results and Granting of Compensation Securities - TMX Newsfile",
+          "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPX3FXS0xKYTVqUHVFS0tIYy04d1BrTVlFNkpFZ2pFb05oNnZBa2N4Wk1WZnZ1a0lNZlNSSk5wakVIb0VHUHJkTGU4a2drdVU5REFOc0JJM3RucHplTDd4VldobnhPelZHYXpKMWlmWDQtTGxJMHBjOU5NMms0YmkzaTAwWVlKTGV0cmpSUzdaSzhDUTRRbmN3YmptVVhMOEdXU0RHbVVMWVE2VmJ1V214Vk9hZHR5X196V3dxSkdLTQ?oc=5",
+          "source": "TMX Newsfile",
+          "published": "2026-09-25T11:30:00+00:00"
+        },
+        {
+          "title": "AI\u2019s Nuclear Power Push Runs Into Cost and Regulatory Hurdles - Yahoo! Finance Canada",
+          "link": "https://news.google.com/rss/articles/CBMigAFBVV95cUxQdTd5TDBfODZZMTNmMG5SWXVUbThydFRPejZjd2FPZ25vbktzcUFWeWRMdmlSZy15NHFKT0tKR1RPS3dyMDZSbXBscF93VkVPQmt5cWdxSDFIZG1iakpQamFScUZ6d01pamNnemh4VzBiRFdMRlRXZ1EtM05ob1JYag?oc=5",
+          "source": "Yahoo! Finance Canada",
+          "published": "2026-09-25T09:30:14+00:00"
+        }
+      ],
+      "rank": 2,
+      "prev_rank": 2,
+      "signal": "Overweight candidate"
+    },
+    {
+      "key": "cybersecurity",
+      "label": "Cybersecurity",
+      "vehicles": [
+        "CIBR",
+        "HACK"
+      ],
+      "score": 2.08,
+      "news": {
+        "articles": 64,
+        "span_days": 29.4,
+        "per_day": 2.2,
+        "momentum": 1.24,
+        "tone": 0.77
+      },
+      "macro_reasons": [
+        "+1 risk on"
+      ],
+      "headlines": [
+        {
+          "title": "Gartner Stock Rises 41% in Three Months: Here's What You Should Know - TradingView",
+          "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxObTROblZ0V0xzVEhCYlJLZUc1dWd1aWRCdHpnWWZjYzNyUnV3dG1IOGZLN3p6dVJXSkpNVUVOd1hrRVNfdWp6LUp6ZDZhZ2RlSUttZ2NqOVA4dHN4TzZuTk1zb0JTdVl0MlBBeWVETG1UaHU4SnhxS19vRUtraXc4cHJOdmJIcmNRQlFDMktzRTZDb05fbzZyZlZ2RFB6cUVZZFVmaFRsV0JnM09UU1czWHdGbjd4RFY3Q2ptY1YwRQ?oc=5",
+          "source": "TradingView",
+          "published": "2026-09-24T14:15:00+00:00"
+        },
+        {
+          "title": "Cyber startup Island hits $6.4 billion valuation in new round as AI attacks fuel spending wave - CNBC",
+          "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTE01VzBSRmVkM0JuVHVUS3lRY0RCVnlPUl8xYzFldk0wcWJlME1aaTNEUXNFYUozdmM1SmU1S09jek05UVg2b0p6M3J2akpmWUdGMm8wZTRrQnBUVDJYbmE4dlBmOGMwYTBkNXhrNGJGX281TzNwQ3V30gF8QVVfeXFMT25rZnFVZHAwZi1rZkZHdjhleWk3RUh4RWxuWVJRRGxXTmNFOGszQ1VMZUFtdUJnX0c5cExiYUpqMFFSdlRIOUEzOUpoWkpYZXE1d1dpWjd2MDBiYXA1eFJ3U0N2MlpxS19GUHllOTQyeHZTYWdOTVY5SjVzQw?oc=5",
+          "source": "CNBC",
+          "published": "2026-09-24T10:00:01+00:00"
+        },
+        {
+          "title": "Why CrowdStrike (CRWD) Stock Is Up Today - TradingView",
+          "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQLTR4VlNVek1Ld0tBVHZDVUFnanlhLXh3a2pPT2Y0ZEFudHc3NGRaQ2RJbGJadGxlYnE4TG9PX0NlMjV5aHd4WG9XQ0hZbWlzcS0xWUhWWloyQ3hha2NvWGowMUlGNlRoYXRJa3ZFMGJZcC1UU0NHekEwSmZydG1PWFF3WTBIbktiV2tsNC04R3lSZjQxbUV3TFJLc3A4dnd3?oc=5",
+          "source": "TradingView",
+          "published": "2026-09-23T18:15:43+00:00"
+        },
+        {
+          "title": "Cybersecurity stocks rally 4% as large-cap tech slides, driven by sector rotation amid AI and security concerns. - Pluang",
+          "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQVHcxNjM1VURIWDlkaWVMYXFFWS1qYWlfLU9vRERhVGVhNlZmeHZ0eVU3SEhqTXZXUS1INEZCQTRER1MtQWF5Q3ZpQnlpNkFPdzlrajlPUkFvdXQtbVU5bFR5eFRlOHFaaEZRaVRxa0RUeVN6bXhkLUJEVXc3SmlkcUgtbENPb3ZQcU5qNHNyRFVacnFrMnJSZWpEVWhaNHQ2bmxPcWNneVBfVXNKWTg0Sg?oc=5",
+          "source": "Pluang",
+          "published": "2026-09-23T15:53:56+00:00"
+        },
+        {
+          "title": "Zscaler vs. Cisco: Which Cybersecurity Stock Is the Better Buy? - The Globe and Mail",
+          "link": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxPLUhOZ3JfVzlBZUtKTWhPclBZcWx2ZUlSekE5OE9oZUlCdVJZNHNla1drWWpCLWF5QVRFcm5mbTlhS3Z3c3dSeHdCTkphNHpWeFJERzhBazJVVGh1cEFOaDFmZC1Lc0lWT3AyUjB1U1hrSFl6SWRqczNieVM3eUgzR3JidDJGNjUzbTh2emI2djM4WFh0MjdzSnR2cGpkM2FZR3dYS3ZIbnhhSmFpclFLcUI2YlJXbXpBSXEtZnVULXZYT0YxR2RVQUpDMUZOUlBCdzhoQjlDNTdqMkU?oc=5",
+          "source": "The Globe and Mail",
+          "published": "2026-09-23T14:46:00+00:00"
+        }
+      ],
+      "rank": 3,
+      "prev_rank": 3,
+      "signal": "Watch"
+    },
+    {
+      "key": "infrastructure_defence",
+      "label": "Infrastructure & defence spending",
+      "vehicles": [
+        "ZGI.TO",
+        "CAE.TO",
+        "ITA"
+      ],
+      "score": 1.56,
+      "news": {
+        "articles": 50,
+        "span_days": 29.4,
+        "per_day": 1.7,
+        "momentum": 1.47,
+        "tone": 1.0
+      },
+      "macro_reasons": [],
+      "headlines": [
+        {
+          "title": "Canada to raise defence spending to 4% GDP by 2030 | Tap to know more | Inshorts - Inshorts",
+          "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxOUVhQSGVWMk9LVmJlU084and3Tm0yQUZMMUtTUUFIR0JkdDMtOTJUSkMyaE44VGNnZE14WEI2M3QyVks0dmVwNUdjZEViV3QzZnZqUmlMUTAtelByVnFidzF0M2wxMGp6V0lXMEt4d3dTZ1hMX3FNaFJTUGE5YUJuZVNzMERYb1c3NG8yQUJTcVlMb2FuZWc5SjVOUFNlZ9IBngFBVV95cUxOUVhQSGVWMk9LVmJlU084and3Tm0yQUZMMUtTUUFIR0JkdDMtOTJUSkMyaE44VGNnZE14WEI2M3QyVks0dmVwNUdjZEViV3QzZnZqUmlMUTAtelByVnFidzF0M2wxMGp6V0lXMEt4d3dTZ1hMX3FNaFJTUGE5YUJuZVNzMERYb1c3NG8yQUJTcVlMb2FuZWc5SjVOUFNlZw?oc=5",
+          "source": "Inshorts",
+          "published": "2026-09-25T10:23:19+00:00"
+        },
+        {
+          "title": "Carney flags \u2018extreme tail risk\u2019 of US military action against Canada: How do their militaries compare - The Times of India",
+          "link": "https://news.google.com/rss/articles/CBMikAJBVV95cUxNaElvd3pYQVNxUWQ4anFkeEFRd29wTnBQNnZUeUtsYzhJZGs0bXhQZ3JhazJHWGZjZzJZamttWTQxR3ZCd1dUVGhQbjM2M1AtMXRiZTNZV3M4SEhZbzdlQnNrdkMya1luSFhRWUQ1QXMwaU1wQlBRTUVNWFR0NExoRVFxRDRZY1pJUmdISTFZNGw1eEVRTDFpV0RPZ09jSWhzc3ZLVk1GZVdpSVk5bk44cjZtenJiaURzLTc3WUZpeDRWaDZyUVBnaDczLUJjbEFwQWc3T1RWSnpmV0R0Z2JkV3l3Q25JVGMzVDRtMU5tZmdvb3Nka3laVTdHd2xjVWdFSmcta1Q1LU9RQ04zZUdSTNIBlgJBVV95cUxOdFk5ZndBbXc4aTRNN1RMNWJZQmt1dlhZcHlHRjQtVnZOazZBeDhTelNjTDBYdzBiWGkwQUZtOWhGY2RKLWd4SmxuaEVQdGpxSXBIeEY0d3hZb2o3YXlYWm1oWHpDQjZGTzR5bjNtRzlhZEw2aTdkUFAwN01HUWRLNEktMGZEVFItMDk0ZWpNR0M4YlZqUWZ1SEc4c2VQVnU5bHowUFlIcW5fZXI4dlEyYktjSWxoQUhtRzVJRmQwakdCVFYtY2NpMXVBLWRYWTN6NmRJVndNUnR2SlNyS3hVS0U1M25yU2ZoLU1vSjg2YXNXRVpicHlfcUY1dE0tZjdRbWdNTkg0Rk96d0ttbGZSWS1JN3d2Zw?oc=5",
+          "source": "The Times of India",
+          "published": "2026-09-25T07:26:00+00:00"
+        },
+        {
+          "title": "US-Canada Relations: Defence Spending and Trade Tensions Amid Imbalance in Military Strength - SSBCrack",
+          "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOZExWRXh3bDZlYi04MkpfdW5NVU9vcHJRd1E3WFpBS0sxODM3N2I2NUdMVmQyejNEUzR1cFdmbGNLaHZOYnBIMUNRYVlSM3U4YzlVSEhTU2dvcGNPSGpfdUZMLXBjVTZBbEljUkcyX3oxaEFRazBBYmJ3RmVZSmJkTUFkaC16dURhczQxMlYwSkZ4UUk1VmFQYjVCc0dJR0VMdVkzcGdXZVVDWERPR1VvWnMwb2RBVWZSNHc?oc=5",
+          "source": "SSBCrack",
+          "published": "2026-09-24T19:39:16+00:00"
+        },
+        {
+          "title": "Canadians support access to abortion services at home and abroad, poll shows - theglobeandmail.com",
+          "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxOSVg1UXA0TzhTRkNGeHltWGZvclhvc1U2VHpvODN1TE01d1RLUXhXMGVwWFJhVE95T1hXc3N4WjJjRzZWeGxTdHNaVFNYXzRSQ3llTXdndkpwY2twaTRzWXVodDN1TWQzNWVnRW0ta2NROXNobjl5aVE2c1FjbVc2emhjOWF1SC1QSVBhMW9CX0RvSjQxOWdvUDJvdE5TbWJlVlhVZ3VMb0ZtVUEwZXR2bG1fcTJvU1U?oc=5",
+          "source": "theglobeandmail.com",
+          "published": "2026-09-24T09:00:00+00:00"
+        },
+        {
+          "title": "Mark Carney, the conservative prime minister we\u2019ve been waiting for? - The Hub | More Signal. Less Noise.",
+          "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxOZDFHNUgzRVFCUTdHLU1EVVk5UDk2WGR2QS1LODFNRlhUWnBPUkdzaExocXg4UlFJVkd1LTdpaWxtUWdQZWp6QVNZNTFsSUJ3emtjMDNwVl9iSFRlUGFYTHB1aEpBYzRyZTQ0RDc1bjZYRV9QXy10Y2E5d1BYcFdDTjhlekJOZzNEYTh1LWVmZkZtNFkwOGhVZGZSQQ?oc=5",
+          "source": "The Hub | More Signal. Less Noise.",
+          "published": "2026-09-23T21:46:14+00:00"
+        }
+      ],
+      "rank": 4,
+      "prev_rank": 4,
+      "signal": "Watch"
+    },
+    {
+      "key": "banks_financials",
+      "label": "Canadian banks & financials",
+      "vehicles": [
+        "ZEB.TO",
+        "XFN.TO"
+      ],
+      "score": 1.5,
+      "news": {
+        "articles": 39,
+        "span_days": 29.4,
+        "per_day": 1.3,
+        "momentum": 0.96,
+        "tone": 0.56
+      },
+      "macro_reasons": [
+        "+1 rates rising"
+      ],
+      "headlines": [
+        {
+          "title": "Canadian Imperial Bank of Commerce (CM.TO) Stock Price, News, Quote & History - Yahoo! Finance Canada",
+          "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE5XeVJoVEktNlFBeU9ROTNtemFOTlVlRWdnakNPMlN0LTFpWW9zWXZnOE5ZUkVhNE1vX05yTjVJQ2pyUFBwYUd2Qk5PN1FjdWlCSWVZ?oc=5",
+          "source": "Yahoo! Finance Canada",
+          "published": "2026-09-24T15:56:42+00:00"
+        },
+        {
+          "title": "Canadian Bank Stocks Have Soared: Has the Easy Money Already Been Made? - Moomoo",
+          "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxPV1Jidkp6ZmQxeTRUcXBoSEtPVXNVQ0JTdEs3dGpMOFZ6bHFVTUNmR0ZvZ291bjNfeVNlU1VRTEVSVVI2dlJSV2NxQUhzdXR5V2JCRFYyalZaSTdUbVNnQnhXTk1DVjRqSDhMRUIyWC03M1pTdjRUckxWbWJoMTFZZzZCUTZObmFiMzNJUWpLRUtJWVJONGVvUDMwa0tuY0pLVFRDNFN3?oc=5",
+          "source": "Moomoo",
+          "published": "2026-09-22T20:32:37+00:00"
+        },
+        {
+          "title": "Canadian Bank Stocks Have Soared: Has the Easy Money Already Been Made? - Yahoo! Finance Canada",
+          "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQQ0ZjLTV2dFpBNlZyd1JxVERtN200VnMzNEN2a1R4LUY4MGVKVF91bzlRcUYwS0k5RUw1aEJDYjMxWXhIN3VtNkZ1aG5PZ0FzSFVPbU0wS2EzTzJ0czVod1BkdnlCRXNJd2xmVGVOQ2ltemFHbGpfT1VLbDdqRGRCdEJwZUdRbmZQ?oc=5",
+          "source": "Yahoo! Finance Canada",
+          "published": "2026-09-22T20:00:00+00:00"
+        },
+        {
+          "title": "Here's how bank stocks might perform if the Bank of Canada starts hiking rates - financialpost.com",
+          "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxNQ3pWaXp1bVFVR0VPVjN1WXFxMkViZGZSMUl3Y2VPeFdoa2h6OE9RZ2tILTdyQmJ4U0RyNF9qTWNZLVpBSGMzalVQWDJWblZpWTRwc0ZoejFnd0twS1k4Nmt4VmMzVDBDdFZmYWk4dFJoTTdwR3Q0em5rRGhMdnRKMllnLTVLZEJj?oc=5",
+          "source": "financialpost.com",
+          "published": "2026-09-21T20:40:58+00:00"
+        },
+        {
+          "title": "Toronto-Dominion Bank Dividend Outlook: Strong Earnings Coverage and Capital Strength Support Sustainable Income - kalkine.ca",
+          "link": "https://news.google.com/rss/articles/CBMi5gFBVV95cUxPaFotLUlzN0RiNjBoTlpuVVllaklxSnFQR1B6ejdOSWdHNzItVmJCdk93YmlQd3FsRlVZalBWZkFwRWNVOTBQMTBaQ3phcV9MLXlWX0RwRTFBX3h4c0pQVm5ZYTdXWngyVi1ic2Zva1k2bVl3ZzViZV9zWXJYaWh5UHZlZXQ3VXNzRlJteGFKSXVrTnhCWU1hQVNwcU02ajlPVG5ZR2JmYkNQeHplQTN2OU1HSDVrMDJBb3lHekEydnpkN3RtREJERzFiZmw1VFZFTTJBYmtDT3E1Q3JqQlhPT1ZJTnh3dw?oc=5",
+          "source": "kalkine.ca",
+          "published": "2026-09-21T13:16:00+00:00"
+        }
+      ],
+      "rank": 5,
+      "prev_rank": 5,
+      "signal": "Watch"
+    },
+    {
+      "key": "ai_infrastructure",
+      "label": "AI infrastructure & data centres",
+      "vehicles": [
+        "XIT.TO",
+        "SMH",
+        "SRVR"
+      ],
+      "score": 1.23,
+      "news": {
+        "articles": 65,
+        "span_days": 29.4,
+        "per_day": 2.2,
+        "momentum": 1.22,
+        "tone": 0.94
+      },
+      "macro_reasons": [
+        "-1 rates rising",
+        "+1 risk on"
+      ],
+      "headlines": [
+        {
+          "title": "Goldman Sachs projects AI capital expenditures to reach $1.2T by 2027 - Crypto Briefing",
+          "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTFBwdkVlTmRFaWFpR0ZZTWJnejQwVmJOTVVsX3k4SG1jSTF5RE9LNm85Y3pmS0FfcGVHMEFUTkZPOE1xN0hjbGJHM1JyWkZqcWlqUmZHRHVoTWtZWk5JbUZJWHJLQnloMmVnYmdIN1l4OFpoWjlrVnlN?oc=5",
+          "source": "Crypto Briefing",
+          "published": "2026-09-25T12:23:56+00:00"
+        },
+        {
+          "title": "Goldman Sees Hyperscaler AI Capex Rising 50% to $1.2 Trillion - Bloomberg.com",
+          "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQbWlkZWVBYTh1eXdiMV9xTHh1U3ZFQ2lCZGF5ZnJsbWc4bVE0ZUpfWXVWU3NjaTdjSjk4V2M2SXN6bF9pa3pZdXF3Y0tRVEpLYzdyYzg5T18wZVlyOVVxR2ZYRUo4dUNEQk1QWHBFNUVibEdQMFN2WkUxMlVnRDVWTkt4UU9tTlBLNkF2MXJtVG5XYlRoRzAyMzJvb19lTlZTNXYyZTlraWdHX19hQ2Zv?oc=5",
+          "source": "Bloomberg.com",
+          "published": "2026-09-25T12:10:02+00:00"
+        },
+        {
+          "title": "Goldman Sachs: AI Compute Capex Return Threshold Revealed \u2014 Six Hyperscalers Need $1.42 Trillion in Revenue by 2028\u20132030 - finance.biggo.com",
+          "link": "https://news.google.com/rss/articles/CBMidkFVX3lxTE9JMFFNN3ItbmxicEUxQ0U3djl5YkhSaS1fMzlGeVlSOTV5M0pQUXozdW5RQlR6ZUpvaHVqNXFCS2FFSVVyRXo5NDlxNWV5VjhkeVZBVmxVRDRid2tlTV8xRGE0LTRSclBkc3UwZHpjeWdxQUVfY2c?oc=5",
+          "source": "finance.biggo.com",
+          "published": "2026-09-25T12:05:00+00:00"
+        },
+        {
+          "title": "AM Markets Need to Know: Burry flags AI capex, Musk's xAI expands, and more - TradingView",
+          "link": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxQMDJ5My1SSWROUFRibUszZFlKWFNMN2lRbmgyWjFEV3p6UGYxd3ZqSWY3d181QjUyUnRPYzF3RzVwb2sxc1lNa2RHb1hzMUVtdFBhTU1UMW9NMURJY1VQNHNEVnVoc2FfV2hObDFRSURpdUhhMTd2ek1pM0ZtSFFXLXZQZ2FvSExhMlpMQjVvbm1HNEhGLWk2TDZuSkdnLUs1c0YzMW40SlFMY00tOGdRMVUwV3dWSmVFQlQzRGV0b2xjbGJwXzBnOW1SbENOQmZV?oc=5",
+          "source": "TradingView",
+          "published": "2026-09-25T10:06:28+00:00"
+        },
+        {
+          "title": "AI Earnings: OpenAI Signs $12B Compute Deal With CoreWeave as AI Capex Soars - Coinpaper",
+          "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxOU2J5eWVwSUR4QVdCWHpiUFNreTZzQ2NBQzZtLUZRRmN6Vk1KVzItSmhtRHR2Q21XdXFZOFVKNGRlNnhmVnJNMDBlaFR4S29MMW9FX2RTMGRqSjBEVGhNZmJ0VThPeTIyVFpHQ21HaWdRM0JJRnkyWlBkQlB6cEFiYlJIMG45YW95T3hUUDNCRGNuZ1hFUE8wUHJqRFhyM1VnbVA2Vw?oc=5",
+          "source": "Coinpaper",
+          "published": "2026-09-24T15:22:10+00:00"
+        }
+      ],
+      "rank": 6,
+      "prev_rank": 6,
+      "signal": "Watch"
+    },
+    {
+      "key": "agriculture_food",
+      "label": "Agriculture & food security",
+      "vehicles": [
+        "NTR.TO",
+        "COW.TO",
+        "MOO"
+      ],
+      "score": 1.17,
+      "news": {
+        "articles": 100,
+        "span_days": 17.4,
+        "per_day": 5.7,
+        "momentum": 6.06,
+        "tone": 0.17
+      },
+      "macro_reasons": [
+        "+1 oil high",
+        "-1 usd strong"
+      ],
+      "headlines": [
+        {
+          "title": "Fertilizer Canada Welcomes Supply Chain and Labour Measures in Bill C-39 - Farms.com",
+          "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNaEFGNTFBWV9JSEFnVDI4TUl0ZUxKcXRlWGRpeldKczFUMzNvY2FJODlqZzJ1V21HSkdJLUg5N0Q3MzJ4SFIyRnZESS1sazZVSnJ3WTJoTlcwUlNJMTliZ3RyTUZxMVM4YjZfeEc5MkRDWFdMLU9pT3EwcWtVd3d3R0xMTTFMSVBtNFFza21JNzRkWFBLeTI4YnVLTVBvOGlfdXdLVkRfdFBKRjZaa0hxdTdvaXRRd1NUXzNqbQ?oc=5",
+          "source": "Farms.com",
+          "published": "2026-09-25T15:35:05+00:00"
+        },
+        {
+          "title": "American farmers are hurting \u2014 and worried about their futures - NPR",
+          "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNQy1pc2hqc2xUM2hXSDVUbm1yMS1xazRKWWw2VFJvYjYxb0V0WnN3RGQtZTJvOWpPUDEyOHIwTTJnYU9ySWVKSDVaTUxidFpQV3NhVEhtY2xPYUVreG1uRWc4NWxwTm5aWXZNQ0F3WEdoNzROYXV5U09yck5mWGpNeHBKS3ZCcUpSS2tWag?oc=5",
+          "source": "NPR",
+          "published": "2026-09-25T09:00:00+00:00"
+        },
+        {
+          "title": "Maryland\u2019s newest dry mix fertilizer facility built for speed - Farm Progress",
+          "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxPQUFrU3g5RkI0OVZSa28tbkF4bVo3d0NjSUhRbjJzTExRclI2M2JINE1zZDNDVkVyWHh0WTNnMFQtOEFYRXJTd3dlcTN6QzVKRlB0akpNUXk2cmE2cTc2RWNoMmdkRVNvWlpub21DVEtXX21USmZOeWdfaVNVYVBZdzVaUVZvNF82Ylc1X1lOdW55c3VIZHNFNE5ZeFR4VXBKOENhZVNHTm1uQQ?oc=5",
+          "source": "Farm Progress",
+          "published": "2026-09-25T07:11:30+00:00"
+        },
+        {
+          "title": "Essex biologist hopes to boost food security with maize research - BBC",
+          "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE9nNEZ0ZmpsRnY5SkphNklfaHVGaWRFME95TU9DWnluNlh0SlRzajBDdndTeFE5NTA1d0c2MGhEOHRUZ2FiaF9UcUFqZnFkT256T0lORC1EZFVjbGs?oc=5",
+          "source": "BBC",
+          "published": "2026-09-25T05:38:55+00:00"
+        },
+        {
+          "title": "South Korean farmers push back against nationwide farmland survey - upi.com",
+          "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQZHhVZk5JVTBXZkFsckdseVMzeE9VMm5fT2N5X0NGVjhwNjlraUhsSURrOFI3ZG1CTmI1ek5oa2dZdnJucUhjbThSZk1WWHdHQVdSQ1pDemFvOVhfQTJRTHl4RkdiVFpYb0VaQTZjTWlFcmFjN0N5OUNtNnBfczhGc3VjcloyN1RONXEwZ2JJcnNYd3hLMEQ1V3ZFQThwWTI1c3VybWprUXZGc0tRVWNmOVBXWdIBuAFBVV95cUxNb3l0WF9sNS1jVDk5WG9ZcVE3VjdLSWxTN1hST1RRT2lWanNBalpvbkpaakFtVjZoQmNwSUU4bW1WekI3aU4yLUN5OHNWRVVONzVQN2h5THEtU05ncGJWN2E3aVpzVm9vUDBPMFhMeEE5dHhWSlBVQTY4VGVHUWFxMmZ6MkwwT0Z6VnBGT2ktQ2VIdXM0YzZSVUpTUWpxRnFYclJ6UWtoaGxCWkdXWTROR1haMHhnVWdE?oc=5",
+          "source": "upi.com",
+          "published": "2026-09-24T21:56:52+00:00"
+        }
+      ],
+      "rank": 7,
+      "prev_rank": 7,
+      "signal": "Watch"
+    },
+    {
+      "key": "power_grid",
+      "label": "Power generation & grid build-out",
+      "vehicles": [
+        "ZUT.TO",
+        "BEP.UN.TO",
+        "GRID"
+      ],
+      "score": 0.81,
+      "news": {
+        "articles": 100,
+        "span_days": 29.4,
+        "per_day": 3.4,
+        "momentum": 19.93,
+        "tone": 0.81
+      },
+      "macro_reasons": [
+        "-1 rates rising"
+      ],
+      "headlines": [
+        {
+          "title": "Forgent Power Solutions (FPS) Capitalizes on the AI Data Center Power Grid Bottleneck - Yahoo Finance Australia",
+          "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQSU5yb05kYVBOZWo3eElncDlWSDBUbi1CYTdVM1FjZlBfb3dyU0JRR0ZWOFFDR0JyNVhKWUJLd2lTUEVRelJ1cG9Fd25ELVl5cmpBRjB6S1dBNXVPb2dfYzJCU2o1b19QVHdySFZDZU1LNi1STkdsMThsRU84UXNFSHVabExLTjdBYS1OSENxMlhUQQ?oc=5",
+          "source": "Yahoo Finance Australia",
+          "published": "2026-09-25T14:35:09+00:00"
+        },
+        {
+          "title": "Houston Power Grid Gets $50M Federal Boost for Reliability - CW39 Houston",
+          "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNc2NVQ3E3VllManJKLS1PMEdfUU55UHRRa2NXQnpESTNDSy1nTXotZGI5UFZ6NkFjQWNOb25MOTZmNGcyd0dhbG16SGt4Y3I5X3RWa01kVzlFWWhzZnhJVXlCSVd6Tnp2bzIzdC0wSXprWVdhZDlObW01X0wySWR4MUVBRm9NT0loV2U5UndJeHFiRUcz?oc=5",
+          "source": "CW39 Houston",
+          "published": "2026-09-25T13:19:54+00:00"
+        },
+        {
+          "title": "Texture launches CommonGrid, an open source registry of the US power grid - PR Newswire",
+          "link": "https://news.google.com/rss/articles/CBMixwFBVV95cUxQZ0lBaWRnWV90b0xVQ0djN0NZSG1tQ1Y5LTdxODhuXzJnX1otRzBmTEFKaG9xSGNvUzBSU2xKbmFNdm1KdUltdGZaMFNrNThTWFVKQjNkX1ZObmxkWXRhZ1NQQkpmbEZzNk0ydDVlR0NJUWFFUTBXREtRdWFneWd3ZEc0UDN0aXpkeG5tR21nSnFhMWhndk5ZRHBRNWU2MnZnTmxTWEdBMkREV3N4RUlUaGc0ZVp1bm9XaWVfZU9jdkp6RHZzU0VJ?oc=5",
+          "source": "PR Newswire",
+          "published": "2026-09-25T13:00:00+00:00"
+        },
+        {
+          "title": "CMP Is Making Some Big Upgrades to Maine\u2019s Power Grid - 92 Moose",
+          "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTFBjS3UyXzliNTJOTkhwRWsxZ1pTejNxbHp6YnhMemFLUnltcFFDOTdNWkp3SkJJbHMzbGJGaWdhOWl3N2lCRktPcTFhRWhabnprbjhoVUFIVWNxTjZSQVE?oc=5",
+          "source": "92 Moose",
+          "published": "2026-09-25T12:53:00+00:00"
+        },
+        {
+          "title": "Colorado power grid upgrades part of $2B push to prevent blackouts, address data center worries - Sentinel Colorado",
+          "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxPeEYzTXhBaVBIX0xDSTl6QTlRMnowckU2LUJlb0lvS18zY1kwNnd3M0NVSTFENk5iS1o1aklUVUJVdF9SQTIxVHF3dXZKejdvQnlZSkFXSWhtY2Zpekg5YWFWVVRtRXdRR3QzRGVkdm04bkhJa3RValV0V0pXcmx0c0YtSmp0aTNRamMzYUtZb24xeHFqRXdNSVdQa2xrLXg1cWFZOFB1RFhzeG9LWWt6aUFKQk5HbW9JUjZIQzBkdkNGemdZa2QxNQ?oc=5",
+          "source": "Sentinel Colorado",
+          "published": "2026-09-25T12:33:28+00:00"
+        }
+      ],
+      "rank": 8,
+      "prev_rank": 8,
+      "signal": "Watch"
+    },
+    {
+      "key": "reits_real_estate",
+      "label": "REITs & rate-sensitive real estate",
+      "vehicles": [
+        "XRE.TO",
+        "ZRE.TO"
+      ],
+      "score": -0.05,
+      "news": {
+        "articles": 61,
+        "span_days": 28.4,
+        "per_day": 2.1,
+        "momentum": 1.93,
+        "tone": 1.0
+      },
+      "macro_reasons": [
+        "-2 rates rising"
+      ],
+      "headlines": [
+        {
+          "title": "Boardwalk REIT\u2019s 2.75% Yield Looks Secure as Low Payout Ratio and Rising FFO Support Distribution Growth - kalkine.ca",
+          "link": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxOT2t0Sy11OXJqWUhEbVMzbEh4OUp5MHRxNlRiU1dObHJMcHRIZTdDZU4yVFNhXzl4ZTFycDNrUzVaeGREeWI2SUNGb1gzdDh4S1NVOER0NzluYnIyUHljcmlDM2tWMDJvVjlNNXZjY1VQUXpXZXQwLWtSTWw4ZTItM3lVU0pocjJvcy1oUEMwOVZFamZaaGR2ZG9fVVhVdDk0WXZqelZRMVpRTEo4Y0JFM2c4VnhzSUhTZUVnRFIxQjFzMkFWbTc2ZmYzWjVzcUxzMVZTYVN5X0M?oc=5",
+          "source": "kalkine.ca",
+          "published": "2026-09-25T16:05:00+00:00"
+        },
+        {
+          "title": "Are lower rates reviving Canadian commercial real estate? - BNN Bloomberg",
+          "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxNcUNHTmZScXRTWjV0cWZuajhSaEwxaUxha3lmTWxaNzRtM3hCRFdmRXFPcU1hTXFkNERxYURwcG5Bb0N3NXhYckE4b0N2SEJFdXRBaDV1ODB2ZHl3V3ZfMElFcW81LXNTWTFhc0M0b1pXTl9zSThVNDM5MUh2UC13a2h2cDRSZ3hfSXJTVWduMldMam1yOXBvMjA5ZmE0eW0zelNHYVJIcFpiTnRnQXJvRU9uMTBtRUU5a2pN?oc=5",
+          "source": "BNN Bloomberg",
+          "published": "2026-09-25T14:21:09+00:00"
+        },
+        {
+          "title": "Can SmartCentres REIT\u2019s 6.10% Yield Support Long-Term Returns? - kalkine.ca",
+          "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxNUm0tZV9RWjNsX2RITzRNdnkycjNFSVo3bUpyOWhqT19aOFVDZWRuSkJkOUhhenRZNTAzQV9XWTBoMnU2aEY0Um1FSjVKMlFOSVRWeVJBeTJjd0FCUVpCZVV1eGhLaWFBajNCNVlfWmgzNW5uWmZpeXJMcVZnSmd1VHpKQ3AzYllra2FESXQtV1RVMnFYd1owMDlMdw?oc=5",
+          "source": "kalkine.ca",
+          "published": "2026-09-25T09:39:00+00:00"
+        },
+        {
+          "title": "Can PRO REIT\u2019s 6.24% Dividend Hold Up in Canada\u2019s Changing Property Market? - kalkine.ca",
+          "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQYmRZWU5admFQVF9kdXRVcmdqTDdGbW5qUGVHZ090SnU5VVBabENzYW9JRmZIMjRaNzBQaWJ2bnhLVGxVOE9Cd0FaOE1lWlNKQ0ZTNFRJX3oxRmZYMVZFXzJtQUxQSTd6SG9KeHZMcFVfVHFLZGsxS1NrZks1RUNiSjlka0dLdFJGSC1FUmdUX1ZsdnRDTVFDSFhkd3g2bFlhR2JQdEl6WWY4QVk?oc=5",
+          "source": "kalkine.ca",
+          "published": "2026-09-25T09:38:00+00:00"
+        },
+        {
+          "title": "Can BTB REIT Sustain Its 7.69% Dividend for Long-Term Income Growth? - kalkine.ca",
+          "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxQdVhKYkhRZUs5QmFoZVZvYzZGUW9mQ2RJbU13WWUyQTUwZXd6MndOQ3hVUC1qRVZEbVlEUHpYRVZhLVc4SmFVV3BwYXlHRXV1ZUpWdTFSTE5lb29UZFA4b1RfMkNid2VVQUUyR0N0NjBaTGtWUVVFcTNfYlBid19hZkl5aFlZQnRpWGdIYldJczVWOUtxdnBLU1RZbFFyS1NrY1Jhdw?oc=5",
+          "source": "kalkine.ca",
+          "published": "2026-09-25T09:34:00+00:00"
+        }
+      ],
+      "rank": 9,
+      "prev_rank": 9,
+      "signal": "Avoid / underweight"
+    },
+    {
+      "key": "healthcare_aging",
+      "label": "Healthcare & aging population",
+      "vehicles": [
+        "XHC.TO",
+        "XLV"
+      ],
+      "score": -0.71,
+      "news": {
+        "articles": 100,
+        "span_days": 29.4,
+        "per_day": 3.4,
+        "momentum": 5.89,
+        "tone": -0.71
+      },
+      "macro_reasons": [
+        "-1 risk on"
+      ],
+      "headlines": [
+        {
+          "title": "Muscle Preservation Is Key in GLP-1 Therapy for Postmenopausal Women - Drug Topics",
+          "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNRG5mM3NNLWZDTnUzUWhTVjZFN0pZNUhMZ0gxX05OWVpBazZlZXg1OWxEQ1U0Q1BLNGhKc1QyQXlKVWRsOTkxaTBZVjRoYjZIQ0pwVlRjUHdxMG12ZjQyU2VxYXdMZmF1TlBTN25TVnlQcFhtSkt2ZnJTRDdBcWpBMm9DcUsxbHhyWGEwaTluRHpYWV9SaGRWOHNfSXhvaHVTOUE?oc=5",
+          "source": "Drug Topics",
+          "published": "2026-09-25T14:20:53+00:00"
+        },
+        {
+          "title": "GLP-1 users eat less overall, but fresh produce gains importance - FreshPlaza",
+          "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxQOTJmNWtqYTZmV3dhTHkxRDZ0SnpGMm1uR0Vma01hdDNBVktaTVZFMThqOFZrelY4bFZDaXVLWDhKSjFZakIyYnFULXQ2bHRFVWFralhYZ0dobEJ4U0xPWVJ5YTRkZmxCTEJ0RkV3QVM2Y1hYX3NhOXIwcmFDUE80S2szYzZhYm1JdFJoUlByMUU1QThSYlpWMFdaY2lzcHNLRlVUX19zTDlRV2gzMVFMdjMwSnJfdndKa01GVl9B?oc=5",
+          "source": "FreshPlaza",
+          "published": "2026-09-25T12:11:47+00:00"
+        },
+        {
+          "title": "When Weight Loss Isn\u2019t the Goal of Taking a GLP-1 - WSJ",
+          "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxQUG1hZkpZUDdGb1V5T0VDakV3TmdObkJUMGI5cGxBd2VrdTdjQVBfYTVycEM3bEItNnA3UDMwOV83MDFzTS1NX3RIX2ZETjNHMWNTajRhVVdIa2hvRVcwdTF0MUNBQTEyN2RiNXFieU5XUEZaQVpKSnhuN0NyR1BXZDBsVkJud19KU0ZKSXl3WFVjUlBSc2dhaA?oc=5",
+          "source": "WSJ",
+          "published": "2026-09-25T11:18:22+00:00"
+        },
+        {
+          "title": "Experts Say 'Anyone' Can Get a GLP-1 Through Telehealth. Here's What to Know Before You Consider It. - Women's Health",
+          "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNVTNyQlk3SUlxU1ZBeGxiS1JzemJSV3E0ZWJNN1JGQVlHZWpoMTlJZUpvUk9id1BlbUgyUXhNSUdDRWdna2V4NEVZeWg2NHNxVFlGVlZJNkROc0tDR1V0eHBuWC1iR2h1a1hKMEVBdVdRWjh4LXd2UnZkdVZxdFR4SlZ1OGFyQ1E?oc=5",
+          "source": "Women's Health",
+          "published": "2026-09-25T11:00:00+00:00"
+        },
+        {
+          "title": "Perioperative Safety Considerations and Surgical Outcomes Associated With GLP-1-Based Therapies: A Systematic Review - cureus.com",
+          "link": "https://news.google.com/rss/articles/CBMigwJBVV95cUxNVlFOR09qaWQzcHhtRjVSLUowTEM1TkhUUlJSbGZVYzhjdzlIaTBoRlhwTTNIY1RuWVJub0F2QUxtaW9JR3FQajhSMUtzSEVtZ3RWYjNMZlo2dE54dExfTGxPUU9ia2dLMi1kaGNPMzNIQ2R2LTNYQ3FGRmc1bTh6a1B5dE9qZ1V4TkctNkljOFpqWVN5eHIwNktMWGgxLTVNak95MFFmM1QtYXpOaVk1Mkc0V3d5RmdHdG45dVJQeEJNVkF6VUd5cUZucnNaYl9BOWVJVzlKcFFIM2huM255TlVpcXg2VVZpVVNGSWZHYkc1eWZZdkkyRjNnQURaVnhrWF9R?oc=5",
+          "source": "cureus.com",
+          "published": "2026-09-25T10:17:11+00:00"
+        }
+      ],
+      "rank": 10,
+      "prev_rank": 10,
+      "signal": "Avoid / underweight"
+    },
+    {
+      "key": "gold_hard_assets",
+      "label": "Gold & precious metals",
+      "vehicles": [
+        "XGD.TO",
+        "CGL.TO",
+        "GLD"
+      ],
+      "score": -0.76,
+      "news": {
+        "articles": 100,
+        "span_days": 25.4,
+        "per_day": 3.9,
+        "momentum": 10.96,
+        "tone": 0.24
+      },
+      "macro_reasons": [
+        "-1 rates rising",
+        "-1 usd strong"
+      ],
+      "headlines": [
+        {
+          "title": "Gold Price Forecast: $4,300 Holds as Range Tightens - FXEmpire",
+          "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxNVWVpVjBSREc4R0dYMmpHb1czLURLZ2pPUDctQXhXZENDZ0dqaUx2cFA0dTlTRnRmSTlKRHBpRFpFYmdvai1fOWN4YmlsdnJ2WFBzYlBTalRiV3NUel93RndyZlZaVmpwc09KZ3dLWXBtWFlGc0tBR0ZTQWttUmpHOXJaNDhoYkVfUHZSSjFMRFhzNlY5ajNOWUtUSm1McFQt?oc=5",
+          "source": "FXEmpire",
+          "published": "2026-09-25T13:30:26+00:00"
+        },
+        {
+          "title": "HOW IAMGOLD (TSX:IMG) and Eldorado Gold (TSX:ELD) Compare Beyond the Gold Price in the S&P/TSX Composite Materials Sector - kalkine.ca",
+          "link": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxPazVXRnBQYTlKREQtRnVHQmI4RGR6c2stMy1CV01NMkR4T2w5UXB3XzYtVlNrZzRyMUpoRHBGZHVBWEVibElpSlVpeGZQT2tiX185SXBjN0QtUU45eUtwYnpmT1RJbHpSTlNJR2I3azAzeW1JTG1uVjRuU21IYzM0ejNQaWd4V2RTUG9ZZU5Rdk01cHl5eGtCZEhLTDdLYmtlMG1SUHVERi1FRkltSm9LaHpkeEYwaFViV3B6UWlPZEFlc3B6anR3YUtkUVUwTHRRNlcwaXpiSm1GX3R4?oc=5",
+          "source": "kalkine.ca",
+          "published": "2026-09-25T13:16:00+00:00"
+        },
+        {
+          "title": "Current price of gold as of September 25, 2026 - fortune.com",
+          "link": "https://news.google.com/rss/articles/CBMibkFVX3lxTE1kVWF6LW1XQi0xVTNfalpoUG5ORTBWdEZPMFVLR20yaWNTUWdkbi03VTRBNGcyVE0wOTVsa0ptcGs2bWpLUW1GWkpoY3VZUm1hWU9adWNidW9vM2FTV09aYzdyNndNeTg3TVhVczRn?oc=5",
+          "source": "fortune.com",
+          "published": "2026-09-25T13:05:00+00:00"
+        },
+        {
+          "title": "Gold Price Today on September 25, 2026 - USA Today",
+          "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxOOWlhcC04TWttSFJYVUpkTHJGZWNhNExSNUNLSDIxWWp0TzZRQjFlbktCRWZYcHZVRFZRUzVERUxMUXpnMl9IQXVFeHlDd0ZONGFBdGo5bDY0andIQ3pyYm15NlBUQ0t1dURXZFpqUFZPQUxVZHJPaGZoR0xsTnFuLW5zVXkwb281SlNrX3Zmc0ZFaFJzejR3WkowUXljd2NuUnJoZFpRcU16N3dS?oc=5",
+          "source": "USA Today",
+          "published": "2026-09-25T12:20:15+00:00"
+        },
+        {
+          "title": "Gold price breaks 50-day support as oil rebound lifts inflation pressure - Kitco AM Report - Kitco",
+          "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxPLVVHTVhKSXRXeFhRN3NaSG1UanBtYTJndzR4b3ZQV1RnbzJjYl9CRTZmSnZKR1UxdUJmOEs0em5rVXlyaHBhN21BQ2xNMUVjQ19QVEJPVzk1TDVzTTFfdWVUZXM1SHMwdFpCZU5PNHVHMWtPR0RWYWtfOVFKdmc2Y3p4OXB3QjRSNGJDbnFyUnk2czR4VnlKQUtYeUc2a2s4YjRMV3hXX05laUgyNzZRTV9FRkpwcG9oX0ZwNnVB?oc=5",
+          "source": "Kitco",
+          "published": "2026-09-25T11:49:36+00:00"
+        }
+      ],
+      "rank": 11,
+      "prev_rank": 11,
+      "signal": "Avoid / underweight"
+    },
+    {
+      "key": "bonds_duration",
+      "label": "Government bonds (duration)",
+      "vehicles": [
+        "XBB.TO",
+        "ZFL.TO"
+      ],
+      "score": -1.03,
+      "news": {
+        "articles": 100,
+        "span_days": 25.4,
+        "per_day": 3.9,
+        "momentum": 2.29,
+        "tone": -0.03
+      },
+      "macro_reasons": [
+        "-2 rates rising"
+      ],
+      "headlines": [
+        {
+          "title": "Bond Yields at 5% Mark New Era \u2018Until Something Breaks\u2019 - Bloomberg.com",
+          "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOMmthTXlhY0IwMERuYVdBMjc1eUF0N0ZjMUZua05makNpclhkVjFQU0loellSNkZVQjVWWFpPNHI3RUhrM0VOM1lySk9jWlh2UGozYW1oSVpZV1BmeHAwNEJVb2hFQ05sblREWFVDNXY5WVZDOWU0R1YtVnlZeHU4S1dBcURpWEllTEFRM19EdFFHTHhzelFGeFNqY2NtelNjZXZycWN4dEJuRXM2SmZFU1RB?oc=5",
+          "source": "Bloomberg.com",
+          "published": "2026-09-25T14:42:49+00:00"
+        },
+        {
+          "title": "Seven Holds in a Row: A Timeline of the Bank of Canada\u2019s Rate Pause - blog.remax.ca",
+          "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQVWRBMTBQX3pua3pOSDRkWERLZmw0RVlkZURLUXRHWlpxLWVWYzV4bVJpa1Z3bk9sUm5rOTlFMlR5SlRTc2syVmtDSWpTUVJDcURWNEFXODBJZ3dkYW04bXZ2c2llbVZNOV9TdXBUMzFXdzNWUTVmQVg1QzFWb2phVGpSSW5JNTZ1NUtIY1JxSDdpdw?oc=5",
+          "source": "blog.remax.ca",
+          "published": "2026-09-25T13:11:49+00:00"
+        },
+        {
+          "title": "Eurozone Bond Yields Fall as Oil Prices Decline; U.S. Treasury Yields Stabilize - WSJ",
+          "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNM2VZNkx1WkRhRFhWUlNOSVZGYlpzN0IyWE1pR3FnZktlUllVU1RDUFJlWWotenpIUlg1cWYxTl9FQjFEb01zd1NUZmxKaHE2X2drZFF2eDBfZm53bDV6bS1sbUVlWUJMWXpWRUo2QmhUYjFmTFZVUXFpVVJKcEdKX0U2UkxtV0dRRXRYVUF3TlRQNTZ6LWtRcFlfQnNVQm5QVGdzNDJZcTZNbkU?oc=5",
+          "source": "WSJ",
+          "published": "2026-09-25T12:21:00+00:00"
+        },
+        {
+          "title": "The Memo: Rising bond yields, mortgage rates deepening gloom for Trump\u2019s GOP - The Hill",
+          "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQT0tYUkd2eFp4dFhTOHpvdHJxV3B3eVBQSklIUmI5OTUtSUdxSzQxR3BoSVNUakdzTHZiM3ZmdDRxMnNBQzBscTB6b0dZOUp0QmN5QU1yOHBldnFwczhJNDZmZ25FRmZNRUpEaUVNclprVWxoRkg3cUhZSnpqdnpINXRLWkhUV3V0?oc=5",
+          "source": "The Hill",
+          "published": "2026-09-25T10:00:00+00:00"
+        },
+        {
+          "title": "European bond yields ease after brutal sell-off as US mortgages hit 7% - Euronews.com",
+          "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxOMU9ibjloMEJxOW5HYnV2NzMtY3QzaW55Nk9jX1NVQUNlWjh0OUJpUlZ6ejBNMTJocnFxem9tdjJMRnJHZ21nNU1TWnNLN2F2M204Y3lwMlB1R1ptVlJoSEJLRDYtaGxOMl9HdzE2b2M0aHBsUXV1Z0o4d1ZWVVVaU0ctMFVwaXEyMHNKbHYwbzhjcFZKZElPLVBIWFdQaTFMX0pfbnh0TUYtTkxLTnRQYXFxOG91VHB5cUdvWXUyMUU?oc=5",
+          "source": "Euronews.com",
+          "published": "2026-09-25T09:08:02+00:00"
+        }
+      ],
+      "rank": 12,
+      "prev_rank": 12,
+      "signal": "Avoid / underweight"
+    }
+  ],
+  "errors": []
+}

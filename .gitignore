@@ -1,0 +1,7 @@
+# Personal financial data: never commit (this repo is public)
+data/holdings.csv
+data/profile.json
+reports/retirement-dashboard.html
+*.statement.csv
+__pycache__/
+*.pyc
