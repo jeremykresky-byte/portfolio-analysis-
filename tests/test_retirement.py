@@ -76,8 +76,16 @@ class RecommendTests(unittest.TestCase):
         recs = recommend.build(p, pf, res)
         titles = " ".join(r["title"] for r in recs)
         self.assertIn("Margin loan", titles)
-        self.assertIn("XEQT", titles)  # >10% single position
+        self.assertNotIn("XEQT is", titles)  # diversified fund: exempt from the single-position cap
         self.assertTrue(all(r["trigger"] for r in recs))
+
+    def test_single_stock_income_cap(self):
+        from retirement.portfolio import Holding
+        pf = load_holdings(EXAMPLE_HOLDINGS)
+        pf.holdings.append(Holding("HOOW", "WeeklyPay ETF", "leveraged_option_income", "USD", 1, 4000, 4000))
+        p = small_profile()
+        recs = recommend.build(p, pf, fc.run_forecast(p, pf, with_solvers=False))
+        self.assertTrue(any(r["title"].startswith("HOOW is") for r in recs))
 
     def test_calendar_is_sorted_and_future(self):
         p = small_profile()

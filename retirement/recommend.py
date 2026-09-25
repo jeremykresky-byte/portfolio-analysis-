@@ -7,13 +7,15 @@ Each recommendation carries:
 """
 from datetime import date
 
-from .assumptions import ASSET_CLASSES
+from .assumptions import ASSET_CLASSES, HIGH_RISK_INCOME
 from .forecast import glide_path_equity
 
 SINGLE_POSITION_CAP = 0.10
 LEVERAGE_WARN = 0.15
 LEVERAGE_CRITICAL = 0.30
 HIGH_RISK_INCOME_CAP = 0.20
+SINGLE_STOCK_INCOME_CAP = 0.05
+DIVERSIFIED = {"global_equity", "managed_global_equity", "bonds", "cash"}
 DRIFT_BAND = 0.05
 
 
@@ -83,28 +85,79 @@ def build(profile, portfolio, forecast, trends=None):
                          f"margin rate exceeds the portfolio's expected return ({cur['expected_return']:.1%}).",
                          "risk"))
 
-    # 3. Concentration
+    # 3. Concentration: single securities only. Diversified funds and estimated buckets are exempt.
+    by_symbol = {h.symbol: h for h in portfolio.long_positions}
     for sym, w in portfolio.position_weights():
-        if w > SINGLE_POSITION_CAP:
+        h = by_symbol[sym]
+        if h.asset_class in DIVERSIFIED or "ESTIMATE" in h.description or "not itemized" in h.description:
+            continue
+        cap = SINGLE_STOCK_INCOME_CAP if h.asset_class == "leveraged_option_income" else SINGLE_POSITION_CAP
+        if w > cap:
             recs.append(_rec("warning", f"{sym} is {w:.0%} of the portfolio",
-                             f"A single position above {SINGLE_POSITION_CAP:.0%} can derail the plan on its own.",
-                             f"Trim {sym} to {SINGLE_POSITION_CAP:.0%} or less and redirect the proceeds.",
-                             f"Now, then whenever any position drifts above {SINGLE_POSITION_CAP:.0%}.", "risk"))
+                             f"{ASSET_CLASSES[h.asset_class]['label']} are capped at {cap:.0%} per holding. "
+                             f"One position this size can derail the plan on its own.",
+                             f"Trim {sym} to {cap:.0%} or less and redirect the proceeds.",
+                             f"Now, then whenever it drifts above {cap:.0%}.", "risk"))
+
+    # 3b. Data gaps
+    est = [h for h in portfolio.long_positions if "ESTIMATE" in h.description or "not itemized" in h.description]
+    if est:
+        v = sum(h.market_value for h in est)
+        recs.append(_rec("warning", f"${v:,.0f} of holdings are estimated, not itemized",
+                         "The source statement gives totals for these holdings but not the individual positions, "
+                         "so the tool has assumed an asset class for them. The forecast is only as good as that guess.",
+                         "Export the IBKR Activity Statement (CSV) and run `python3 -m retirement import-ibkr`.",
+                         "Before acting on any trade suggestion here.", "data"))
 
     # 4. Yield-chasing / structural decay
     hri = portfolio.high_risk_income_share()
     if hri > HIGH_RISK_INCOME_CAP:
         classes = [ASSET_CLASSES[c]["label"] for c, w in portfolio.weights_by_class().items()
-                   if c in ("split_share", "leveraged_cef", "bdc", "covered_call", "mortgage_credit") and w > 0.02]
+                   if c in HIGH_RISK_INCOME and w > 0.02]
         recs.append(_rec("critical" if hri > 0.5 else "warning",
                          f"{hri:.0%} in high-yield structured products",
                          f"Holdings in {', '.join(classes)} pay high distributions, but those payouts often come from "
-                         f"return of capital or leverage. Over time the NAV erodes (the Cornerstone funds CLM/CRF are the "
-                         f"textbook case). This tool charges these classes a {ASSET_CLASSES['leveraged_cef']['drag']:.1%}/yr drag.",
+                         f"return of capital, option premiums sold against the upside, or leverage. The price usually "
+                         f"erodes over time. This tool charges these classes up to "
+                         f"{max(ASSET_CLASSES[c]['drag'] for c in portfolio.weights_by_class() if c in HIGH_RISK_INCOME):.1%}/yr of drag"
+                         + (", and single-stock option-income funds run at ~55% volatility." if
+                            "leveraged_option_income" in portfolio.weights_by_class() else "."),
                          f"Cap high-yield structured products at {HIGH_RISK_INCOME_CAP:.0%}. Replace them with broad index "
                          f"ETFs (e.g. XEQT/VEQT for equity, XBB/ZAG for bonds).",
                          "At each quarterly review, sell any fund whose NAV fell more than 5% over 12 months while "
                          "paying its distribution.", "allocation"))
+
+    # 4b. Distributions funded by capital losses (needs actual performance figures)
+    ytd = profile.get("ytd_performance")
+    if ytd and ytd.get("distributions", 0) > 0 and ytd.get("price_change", 0) < 0:
+        total = ytd["distributions"] + ytd["price_change"]
+        if total < 0:
+            recs.append(_rec("critical",
+                             f"Distributions of ${ytd['distributions']:,.0f} came with ${-ytd['price_change']:,.0f} of price losses",
+                             f"{ytd.get('label', 'Year to date')}: payouts plus price change = ${total:,.0f}. The income is "
+                             f"being paid out of your own capital. Each payout is also taxable, so after tax the loss is larger.",
+                             "Stop adding to option-income ETFs. Don't reinvest their distributions: use them to pay down "
+                             "margin, then move into broad index ETFs.",
+                             "Check every quarter: if distributions plus price change is below zero for 2 quarters "
+                             "running, sell the fund.", "allocation"))
+
+    # 4c. Fund fees
+    for cls in ("managed_global_equity",):
+        w = portfolio.weights_by_class().get(cls, 0.0)
+        if w > 0:
+            value = w * portfolio.gross_assets
+            cost = ASSET_CLASSES[cls]["drag"] - ASSET_CLASSES["global_equity"]["drag"]
+            yrs = profile["retirement_age"] - profile["current_age"]
+            drag_at_ret = value * ((1.066 - ASSET_CLASSES["global_equity"]["drag"]) ** yrs
+                                   - (1.066 - ASSET_CLASSES[cls]["drag"]) ** yrs)
+            recs.append(_rec("info", f"{ASSET_CLASSES[cls]['label']}: about {cost:.1%}/yr more than an index ETF",
+                             f"On ${value:,.0f}, the higher fees cost about ${value * cost:,.0f} this year and about "
+                             f"${drag_at_ret:,.0f} of growth by age {profile['retirement_age']} (nominal).",
+                             "Ask the advisor for the all-in cost (MER + admin fee). Compare it with a self-directed "
+                             "RRSP/LIRA holding XEQT or VEQT (~0.2%). A LIRA can move to another locked-in account "
+                             "by direct transfer, with no tax.",
+                             "At the next annual review, or when the advisor relationship stops adding planning "
+                             "value you use.", "fees"))
 
     # 5. Glide path / drift
     eq_now = portfolio.equity_share()
@@ -149,12 +202,17 @@ def build(profile, portfolio, forecast, trends=None):
         if r.get("rates_rising", {}).get("on"):
             rate_sensitive = sum(w for c, w in portfolio.weights_by_class().items()
                                  if c in ("reit", "preferred", "split_share", "mortgage_credit", "bonds"))
-            recs.append(_rec("warning", "Market yields are rising", r["rates_rising"]["why"],
-                             f"{rate_sensitive:.0%} of the portfolio is rate-sensitive (REITs, preferreds, split-shares, "
-                             f"mortgage credit). Don't add to these. Paying down margin now also protects against "
-                             f"higher borrowing costs.",
-                             "Re-assess when the 2-yr GoC yield stops rising (3-month change below +0.25 pts).",
-                             "macro"))
+            if rate_sensitive > 0.05 or portfolio.debt > 0:
+                parts = []
+                if rate_sensitive > 0.05:
+                    parts.append(f"{rate_sensitive:.0%} of the portfolio is rate-sensitive (REITs, preferreds, "
+                                 f"split-shares, mortgage credit). Don't add to these.")
+                if portfolio.debt > 0:
+                    parts.append(f"The ${portfolio.debt:,.0f} margin loan reprices with rates. Paying it down now "
+                                 f"locks in the saving.")
+                recs.append(_rec("warning", "Market yields are rising", r["rates_rising"]["why"], " ".join(parts),
+                                 "Re-assess when the 2-yr GoC yield stops rising (3-month change below +0.25 pts).",
+                                 "macro"))
         if r.get("rates_falling", {}).get("on") and portfolio.debt > 0:
             recs.append(_rec("info", "Rates are falling, so margin cost is easing",
                              r["rates_falling"]["why"],

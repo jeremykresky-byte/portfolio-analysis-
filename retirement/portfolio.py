@@ -20,6 +20,7 @@ class Holding:
     quantity: float
     market_value: float
     cost_basis: float
+    account: str = ""
 
 
 @dataclass
@@ -69,6 +70,14 @@ class Portfolio:
         usd = sum(h.market_value for h in self.long_positions if h.currency == "USD")
         return usd / (self.gross_assets or 1.0)
 
+    def by_account(self):
+        """Net value per account (margin debt nets against its own account)."""
+        out = {}
+        for h in self.holdings:
+            key = h.account or "Unassigned"
+            out[key] = out.get(key, 0.0) + h.market_value
+        return dict(sorted(out.items(), key=lambda kv: -kv[1]))
+
     def unrealized_pl(self):
         return sum(h.market_value - h.cost_basis for h in self.long_positions)
 
@@ -117,6 +126,7 @@ def load_holdings(path=None):
                 quantity=float(row.get("quantity") or 0),
                 market_value=float(row["market_value_cad"]),
                 cost_basis=float(row.get("cost_basis_cad") or row["market_value_cad"]),
+                account=(row.get("account") or "").strip(),
             ))
     return Portfolio(holdings)
 
@@ -133,5 +143,5 @@ def add_other_assets(portfolio, profile):
             portfolio.holdings.append(Holding(
                 symbol=a["name"][:24], description=a["name"], asset_class=a["asset_class"],
                 currency="CAD", quantity=1, market_value=float(a["value"]),
-                cost_basis=float(a["value"])))
+                cost_basis=float(a["value"]), account=a.get("account", "Other")))
     return portfolio

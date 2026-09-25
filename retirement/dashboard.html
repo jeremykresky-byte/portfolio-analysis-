@@ -197,11 +197,11 @@ code { font-family: var(--font-mono); font-size: 12.5px; background: var(--grid)
 
   <section aria-labelledby="alloc-h">
     <div class="sec-head"><h2 id="alloc-h">Where the money is today</h2><span class="small muted" id="alloc-sub"></span></div>
-    <div class="two">
+    <div style="display:grid;gap:20px">
       <div class="panel bars" id="alloc"></div>
       <div class="panel" style="display:grid;gap:10px">
         <h3>Position detail</h3>
-        <div class="table-wrap" style="max-height:360px;overflow:auto"><table id="positions"></table></div>
+        <div class="table-wrap" style="max-height:440px;overflow:auto"><table id="positions"></table></div>
       </div>
     </div>
   </section>
@@ -350,9 +350,14 @@ $("alloc").innerHTML = `<h3>By asset class</h3><p class="small muted"><span clas
   PF.alloc.map((a) => `<div class="bar-row"><span>${esc(a.label)}${a.flag ? '<span class="tag">HY</span>' : ""}</span>` +
     `<div class="bar-track"><div class="bar-fill${a.flag ? " flag" : ""}" style="width:${(a.weight / maxW) * 100}%"></div></div>` +
     `<span class="num" style="text-align:right">${pct(a.weight, 1)}</span></div>`).join("");
+const maxA = Math.max(...PF.accounts.map((a) => a.value), 1);
+$("alloc").innerHTML += `<h3 style="margin-top:14px">By account (net of margin)</h3>` +
+  PF.accounts.map((a) => `<div class="bar-row"><span>${esc(a.name)}</span>` +
+    `<div class="bar-track"><div class="bar-fill" style="width:${Math.max(a.value, 0) / maxA * 100}%"></div></div>` +
+    `<span class="num" style="text-align:right">${fmtK(a.value)}</span></div>`).join("");
 $("alloc-sub").textContent = `${pct(PF.hri)} high-yield structured · ${pct(PF.equity)} equity-like vs. ${pct(PF.equity_target)} target · ${pct(PF.usd)} USD · margin ${pct(PF.leverage)} of assets`;
-$("positions").innerHTML = `<thead><tr><th>Symbol</th><th>Class</th><th class="r">Value (CAD)</th><th class="r">Unreal. P&amp;L</th></tr></thead><tbody>` +
-  PF.positions.map((p) => `<tr><td><b>${esc(p.symbol)}</b><div class="small muted">${esc(p.desc)}</div></td><td>${esc(p.cls)}</td>` +
+$("positions").innerHTML = `<thead><tr><th>Symbol</th><th>Account</th><th>Class</th><th class="r">Value (CAD)</th><th class="r">Unreal. P&amp;L</th></tr></thead><tbody>` +
+  PF.positions.map((p) => `<tr><td><b>${esc(p.symbol)}</b><div class="small muted">${esc(p.desc)}</div></td><td class="small">${esc(p.account)}</td><td>${esc(p.cls)}</td>` +
     `<td class="r num">${fmt$(p.value)}</td><td class="r num">${p.value < 0 ? "" : fmt$(p.pl)}</td></tr>`).join("") + "</tbody>";
 
 // Economy

@@ -20,7 +20,8 @@ def _payload(profile, portfolio, res, recs, cal, snap):
     alloc = [{"key": c, "label": ASSET_CLASSES[c]["label"], "weight": w, "flag": c in HIGH_RISK_INCOME}
              for c, w in portfolio.weights_by_class().items()]
     positions = [{"symbol": h.symbol, "desc": h.description, "cls": ASSET_CLASSES[h.asset_class]["label"],
-                  "value": h.market_value, "pl": h.market_value - h.cost_basis, "ccy": h.currency}
+                  "value": h.market_value, "pl": h.market_value - h.cost_basis, "ccy": h.currency,
+                  "account": h.account}
                  for h in sorted(portfolio.holdings, key=lambda h: -h.market_value)]
     return {
         "generated": date.today().isoformat(),
@@ -31,7 +32,8 @@ def _payload(profile, portfolio, res, recs, cal, snap):
                       "leverage": portfolio.leverage, "equity": portfolio.equity_share(),
                       "equity_target": glide_path_equity(profile["current_age"], profile["retirement_age"]),
                       "usd": portfolio.usd_share(), "hri": portfolio.high_risk_income_share(),
-                      "alloc": alloc, "positions": positions},
+                      "alloc": alloc, "positions": positions,
+                      "accounts": [{"name": k, "value": v} for k, v in portfolio.by_account().items()]},
         "ages": res["current"]["ages"],
         "current": scen(res["current"]),
         "recommended": scen(res["recommended"]),

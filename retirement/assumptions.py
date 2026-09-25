@@ -25,11 +25,21 @@ ASSET_CLASSES = {
     "split_share":     {"label": "Split-share capital",      "mu": 0.050, "sigma": 0.30, "drag": 0.000, "equity": 1.0},
     "leveraged_cef":   {"label": "Leveraged / ROC CEFs",     "mu": 0.050, "sigma": 0.22, "drag": 0.015, "equity": 1.0},
     "covered_call":    {"label": "Covered-call ETFs",        "mu": 0.050, "sigma": 0.14, "drag": 0.006, "equity": 1.0},
+    # Single-stock / crypto option-income ETFs (YieldMax, Roundhill WeeklyPay 1.2x).
+    # At ~55% volatility the lognormal median return is deeply negative even before
+    # drag, which matches how these funds bleed NAV while paying large distributions.
+    "leveraged_option_income": {"label": "Single-stock / crypto option-income ETFs",
+                                "mu": 0.066, "sigma": 0.55, "drag": 0.030, "equity": 1.0},
+    # Actively managed or advisor-sold funds: index-like risk, higher all-in cost
+    # (fund MER plus dealer admin fee).
+    "managed_global_equity": {"label": "Global equity (managed fund)",
+                              "mu": 0.066, "sigma": 0.16, "drag": 0.011, "equity": 1.0},
 }
 
 # Classes that carry embedded leverage, return-of-capital, or structural
 # decay risk. Used by the recommendation engine.
-HIGH_RISK_INCOME = {"split_share", "leveraged_cef", "bdc", "covered_call", "mortgage_credit"}
+HIGH_RISK_INCOME = {"split_share", "leveraged_cef", "bdc", "covered_call", "mortgage_credit",
+                    "leveraged_option_income"}
 
 # Pairwise correlation between any two risky classes (constant-correlation model).
 RISKY_CORRELATION = 0.6
